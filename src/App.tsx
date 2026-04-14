@@ -35,7 +35,7 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
     <nav className="w-full border-b border-[#e0e0e0] bg-white">
       <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
         {/* Logo */}
-        <div className="h-30 w-[156px] relative overflow-hidden shrink-0">
+        <div className="h-20 w-[136px] relative overflow-hidden shrink-0">
           <img
             src={LOGO_DARK}
             alt="MIRAGE"
