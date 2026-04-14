@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { ExternalLink } from 'lucide-react';
 import logoSrc from './assets/logo.png';
-import _asset_imgPaperThumbnail from "./assets/paper-thumbnail.png";
-
 const LOGO_DARK = logoSrc;
-
-const imgPaperThumbnail = _asset_imgPaperThumbnail;
 
 // ──────────────────────────────────────────────────────────
 // Publication data
@@ -45,11 +40,13 @@ function Nav({
     <nav className="w-full border-b border-[#e0e0e0] bg-white">
       <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
         <div className="h-10 w-[126px] relative overflow-hidden shrink-0">
-          <img
+          <a href='/'>
+            <img
             src={LOGO_DARK}
             alt="MIRAGE"
             className="w-full h-full object-contain invert"
           />
+          </a>
         </div>
         <div className="flex items-center gap-12">
           <span
@@ -116,68 +113,88 @@ function Hero() {
 // ──────────────────────────────────────────────────────────
 // Publications grid
 // ──────────────────────────────────────────────────────────
-const PDF_URL = 'https://arxiv.org/pdf/2502.05250';
-
-function PublicationsGrid() {
+function PublicationsGrid({ onNavigateHome }: { onNavigateHome: () => void }) {
   const pub = publications[0];
-  const [showPdf, setShowPdf] = useState(false);
 
   return (
     <section className="w-full bg-white">
-      <div className="max-w-[1440px] mx-auto px-20 pb-40 flex flex-col gap-12">
-        {/* Single publication card */}
-        <div className="flex gap-8 items-start">
-          <div className="w-[192px] h-[261px] rounded-lg border-8 border-[#edeee9] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04),0px_4px_8px_0px_rgba(0,0,0,0.06)] overflow-hidden relative shrink-0">
-            <img
-              src={imgPaperThumbnail}
-              alt={pub.title}
-              className="absolute inset-0 w-full h-full object-cover"
+      <div className="max-w-[1440px] mx-auto px-20 pb-40">
+        <div className="flex gap-16 items-start">
+          {/* Paper PDF viewer */}
+          <div className="w-[608px] h-[843px] rounded-lg border-[12px] border-[#edeee9] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04),0px_4px_8px_0px_rgba(0,0,0,0.06)] overflow-hidden shrink-0">
+            <iframe
+              src="https://arxiv.org/pdf/2502.05250"
+              title={pub.title}
+              className="w-full h-full"
             />
           </div>
-          <div className="flex flex-col gap-2 pt-2">
-            {pub.href ? (
-              <a
-                href={pub.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-[24px] font-bold leading-[1.3] text-[#1e1e1e] hover:text-[#3b6edc] transition-colors"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                {pub.title}
-                <ExternalLink className="w-5 h-5 shrink-0" />
-              </a>
-            ) : (
-              <p
-                className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e]"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                {pub.title}
-              </p>
-            )}
-            <p className="text-[18px] font-normal leading-[1.5] text-[#444]">{pub.authors}</p>
+
+          {/* Details */}
+          <div className="flex flex-col items-start justify-between py-4 self-stretch w-[608px]">
+            <div className="flex flex-col gap-12 w-full">
+              {/* Heading */}
+              <div className="flex flex-col gap-4 w-full">
+                <h3
+                  className="text-[32px] font-bold leading-[1.1] tracking-[0.4px] text-[#1e1e1e] w-full"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  {pub.title}
+                </h3>
+                <p className="text-[16px] font-normal leading-[1.5] text-[#6b6b6b] w-full">
+                  {pub.authors}
+                </p>
+              </div>
+
+              {/* Abstract */}
+              <div className="flex flex-col gap-4 w-full">
+                <h4
+                  className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e] w-full"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  Abstract
+                </h4>
+                <p className="text-[20px] font-normal leading-[1.5] text-[#444] w-full">
+                  This study presents the Music Informatics for Radio Across the GlobE (MIRAGE) online
+                  dashboard, which allows users to access, interact with, and export metadata (e.g.,
+                  artist name, track title) and musicological features (e.g., instrument list, voice
+                  type, key/mode) for 1 million events streaming on 10,000 internet radio stations
+                  across the globe. Users can search for stations or events according to several
+                  criteria, display, analyze, and listen to the selected station/event lists using
+                  interactive visualizations that include embedded links to streaming services, and
+                  finally export relevant metadata and visualizations for further study.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom row */}
+            <div className="border-t border-[#e0e0e0] pt-8 flex items-center justify-between w-full">
+              <div className="flex items-center gap-3">
+                <a
+                  href={pub.href ?? '#'}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="h-14 flex items-center px-6 bg-[#3b6edc] rounded-2xl text-base font-semibold text-white"
+                >
+                  Read Paper
+                </a>
+                <button
+                  onClick={() => {
+                    onNavigateHome();
+                    setTimeout(() => {
+                      document.getElementById('how-to-cite')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 50);
+                  }}
+                  className="h-14 flex items-center px-6 bg-[#f3f3f3] border border-[#e0e0e0] rounded-2xl text-base font-semibold text-[#1e1e1e]"
+                >
+                  Cite
+                </button>
+              </div>
+              <span className="text-[16px] font-medium leading-[1.5] text-[#6b6b6b] whitespace-nowrap">
+                PDF • 8 pages
+              </span>
+            </div>
           </div>
         </div>
-
-        {/* Toggle button */}
-        <button
-          onClick={() => setShowPdf((v) => !v)}
-          className="self-start h-12 flex items-center gap-2 px-5 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e] hover:bg-[#e8e8e8] transition-colors"
-        >
-          {showPdf ? 'Hide Paper Preview' : 'Preview Paper'}
-          <ChevronDown className={`w-4 h-4 text-[#c1c1c1] transition-transform ${showPdf ? 'rotate-180' : ''}`} />
-        </button>
-
-        {/* PDF preview */}
-        {showPdf && (
-          <div className="w-full rounded-2xl overflow-hidden border border-[#e0e0e0] shadow-sm">
-            <iframe
-              src={PDF_URL}
-              title="Paper PDF Preview"
-              className="w-full"
-              style={{ height: '800px' }}
-            />
-          </div>
-        )}
       </div>
     </section>
   );
@@ -261,7 +278,7 @@ export default function ResearchOutputs({
       <Nav onNavigateHome={onNavigateHome} onNavigateTeam={onNavigateTeam} onNavigateContacts={onNavigateContacts} />
       <main className="w-full flex flex-col items-center">
         <Hero />
-        <PublicationsGrid />
+        <PublicationsGrid onNavigateHome={onNavigateHome} />
       </main>
       <Footer />
     </div>

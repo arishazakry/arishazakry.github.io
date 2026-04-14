@@ -22,11 +22,13 @@ function Nav({
     <nav className="w-full border-b border-[#e0e0e0] bg-white">
       <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
         <div className="h-10 w-[126px] relative overflow-hidden shrink-0">
-          <img
+          <a href='/'>
+            <img
             src={LOGO_DARK}
             alt="MIRAGE"
             className="w-full h-full object-contain invert"
           />
+          </a>
         </div>
         <div className="flex items-center gap-12">
           <span
@@ -322,7 +324,7 @@ export default function Contacts({
               href="mailto:drwsears@umich.edu"
               className="flex items-center gap-2 py-4 shrink-0"
             >
-              <Mail className="w-6 h-6 shrink-0" />
+              <Mail className="w-6 h-6 shrink-0 text-[#3b6edc]" />
               <span className="text-[20px] font-normal leading-[1.5] text-[#3b6edc] whitespace-nowrap">
                 drwsears@umich.edu
               </span>

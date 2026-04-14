@@ -54,11 +54,13 @@ function Nav({ onNavigateHome, onNavigateResearch, onNavigateContacts }: { onNav
     <nav className="w-full border-b border-[#e0e0e0] bg-white">
       <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
         <div className="h-10 w-[126px] relative overflow-hidden shrink-0">
+          <a href='/'>
           <img
             src={LOGO_DARK}
             alt="MIRAGE"
             className="w-full h-full object-contain invert"
           />
+          </a>
         </div>
         <div className="flex items-center gap-12">
           <span
@@ -163,19 +165,19 @@ function PrimaryResearcher() {
             {/* Links */}
             <div className="flex gap-12 items-center">
               <a
-                href="https://scholar.google.com"
+                href="https://scholar.google.com/citations?user=yuphd6EAAAAJ&hl=en"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2"
               >
-                <GraduationCap className="w-6 h-6" />
+                <GraduationCap className="w-6 h-6 text-[#3b6edc]" />
                 <span className="text-[18px] font-normal leading-[1.5] text-[#3b6edc]">Google Scholar</span>
               </a>
               <a
                 href="mailto:drwsears@umich.edu"
                 className="flex items-center gap-2"
               >
-                <Mail className="w-6 h-6" />
+                <Mail className="w-6 h-6 text-[#3b6edc]" />
                 <span className="text-[18px] font-normal leading-[1.5] text-[#3b6edc]">drwsears@umich.edu</span>
               </a>
             </div>
@@ -199,6 +201,14 @@ const teamMembers = [
     nameColor: '#3b6edc',
   },
   {
+    img: imgArishahuda,
+    name: 'Arishahuda S. Zakry',
+    role: 'Developer',
+    institution: 'University of Michigan, Ann Arbor',
+    href: 'https://www.linkedin.com/in/arisha-zakry/',
+    nameColor: '#1e1e1e',
+  },
+  {
     img: imgTommyDang,
     name: 'Tommy Dang',
     role: 'Developer',
@@ -220,14 +230,6 @@ const teamMembers = [
     role: 'UX/UI Design',
     institution: 'University of Michigan, Ann Arbor',
     href: 'https://www.linkedin.com/in/vibhor-katiyar-753687224/',
-    nameColor: '#1e1e1e',
-  },
-  {
-    img: imgArishahuda,
-    name: 'Arishahuda S. Zakry',
-    role: 'Developer',
-    institution: 'University of Michigan, Ann Arbor',
-    href: 'https://www.linkedin.com/in/arisha-zakry/',
     nameColor: '#1e1e1e',
   },
   {
@@ -280,10 +282,52 @@ const teamMembers = [
   },
 ];
 
+const ROLE_SECTIONS: { label: string; roles: string[] }[] = [
+  { label: 'Developers', roles: ['Developer'] },
+  { label: 'UI/UX Design', roles: ['UX/UI Design'] },
+  { label: 'Annotators', roles: ['Annotator'] },
+];
+
+function MemberCard({ member }: { member: typeof teamMembers[0] }) {
+  return (
+    <div className="flex flex-col gap-4 items-start">
+      <div className="w-40 h-40 rounded-lg overflow-hidden border border-black/10 relative shrink-0">
+        <img
+          src={member.img}
+          alt={member.name}
+          className="absolute inset-0 w-full h-full object-cover object-top"
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        {member.href ? (
+          <a
+            href={member.href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e] no-underline w-full"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", textDecoration: 'none' }}
+          >
+            {member.name}
+          </a>
+        ) : (
+          <p
+            className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e]"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            {member.name}
+          </p>
+        )}
+        <p className="text-[18px] font-normal leading-[1.5] text-[#444]">{member.role}</p>
+      </div>
+      <p className="text-[16px] font-normal leading-[1.5] text-[#6b6b6b]">{member.institution}</p>
+    </div>
+  );
+}
+
 function ResearchTeam() {
   return (
     <section className="w-full bg-white">
-      <div className="max-w-[1440px] mx-auto px-20 py-40 flex flex-col gap-10">
+      <div className="max-w-[1440px] mx-auto px-20 py-40 flex flex-col gap-16">
         <h2
           className="text-[48px] font-bold leading-[1.1] tracking-[-0.8px] text-[#1e1e1e]"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -291,45 +335,26 @@ function ResearchTeam() {
           Research Team
         </h2>
 
-        <div className="grid grid-cols-3 gap-10">
-          {teamMembers.map((member) => (
-            <div key={member.name} className="flex flex-col gap-4 items-start">
-              {/* Photo */}
-              <div className="w-40 h-40 rounded-lg overflow-hidden border border-black/10 relative shrink-0">
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className="absolute inset-0 w-full h-full object-cover object-top"
-                />
+        <div className="flex flex-col gap-16">
+          {ROLE_SECTIONS.map(({ label, roles }) => {
+            const members = teamMembers.filter((m) => roles.includes(m.role));
+            if (!members.length) return null;
+            return (
+              <div key={label} className="flex flex-col gap-8">
+                <h3
+                  className="text-[28px] font-semibold leading-[1.2] text-[#1e1e1e]"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  {label}
+                </h3>
+                <div className="grid grid-cols-3 gap-10">
+                  {members.map((member) => (
+                    <MemberCard key={member.name} member={member} />
+                  ))}
+                </div>
               </div>
-
-              {/* Text */}
-              <div className="flex flex-col gap-1">
-                {member.href ? (
-                  <a
-                    href={member.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e] no-underline w-full"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif", textDecoration: 'none' }}
-                  >
-                    {member.name}
-                  </a>
-                ) : (
-                  <p
-                    className="text-[24px] font-bold leading-[1.3] text-[#1e1e1e]"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    {member.name}
-                  </p>
-                )}
-                <p className="text-[18px] font-normal leading-[1.5] text-[#444]">{member.role}</p>
-              </div>
-
-              {/* Institution */}
-              <p className="text-[16px] font-normal leading-[1.5] text-[#6b6b6b]">{member.institution}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
