@@ -12,9 +12,10 @@ const LOGO_DARK = logoSrc;
 // Nav
 // ──────────────────────────────────────────────────────────
 const DOWNLOAD_OPTIONS = [
-  { label: 'Python Package', href: 'https://github.com/arishazakry/mirage-library' },
   { label: 'Desktop App', href: '#' },
-  { label: 'MIRAGE MetaCorpus', href: 'https://zenodo.org/records/12786202'}, 
+  { label: 'Python Library', href: 'https://github.com/arishazakry/mirage-library' },
+  { label: 'Paper', href: 'https://arxiv.org/html/2502.05250v1' },
+  { label: 'Metacorpus', href: 'https://zenodo.org/records/12786202' },
 ];
 
 const CITE_STYLES = [
@@ -77,15 +78,15 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
               <ChevronDown className={`w-4 h-4 text-[#c1c1c1] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             {dropdownOpen && (
-              <div className='absolute right-0 mt-2 w-56 bg-white border border-[#e0e0e0] rounded-xl shadow-lg overflow-hidden z-50'>
-                {DOWNLOAD_OPTIONS.map(({ label, href }) => (
+              <div className='absolute right-0 mt-2 w-56 bg-white rounded-[12px] shadow-lg z-50 p-[8px] flex flex-col'>
+                {DOWNLOAD_OPTIONS.map(({ label, href }, i) => (
                   <a
                     key={label}
                     href={href}
-                    className='flex items-center justify-between px-4 py-3 text-sm text-[#1e1e1e] hover:bg-[#f3f3f3] transition-colors'
+                    className={`flex items-center justify-between px-[8px] py-[16px] rounded-[8px] text-[16px] font-medium text-[#1e1e1e] transition-colors hover:bg-[#eaeaea] ${i === 0 ? 'bg-[#eaeaea]' : ''}`}
                   >
                     {label}
-                    <Download className="w-4 h-4 text-[#8a8a8a] shrink-0" />
+                    <Download className="w-6 h-6 text-[#1e1e1e] shrink-0" />
                   </a>
                 ))}
               </div>
