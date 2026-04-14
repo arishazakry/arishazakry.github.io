@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --brand-primary: #3b6edc;
+  --brand-secondary: #f74b0e;
+  --text-heading: #1e1e1e;
+  --text-body: #444444;
+  --text-secondary: #6b6b6b;
+  --text-inverse-heading: #ffffff;
+  --text-inverse-body: #c1c1c1;
+  --surface-card: #edeee9;
+  --surface-inverse: #1e1e1e;
+  --bg-base: #ffffff;
+  --button-soft-bg: #f3f3f3;
+  --button-soft-border: #e0e0e0;
+  --button-soft-text: #1e1e1e;
+  --button-primary-bg: #3b6edc;
+  --button-primary-text: #ffffff;
+  --button-neutral-bg: #1e1e1e;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
