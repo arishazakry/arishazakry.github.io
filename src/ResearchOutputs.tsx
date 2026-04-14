@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { ExternalLink } from 'lucide-react';
 import logoSrc from './assets/logo.png';
+import _asset_imgPaperThumbnail from "./assets/paper-thumbnail.png";
 
 const LOGO_DARK = logoSrc;
 
-const imgPaperThumbnail = "https://www.figma.com/api/mcp/asset/e8022d75-07a3-4fc9-938d-4c9594d2b46b";
+const imgPaperThumbnail = _asset_imgPaperThumbnail;
 
 // ──────────────────────────────────────────────────────────
 // Publication data

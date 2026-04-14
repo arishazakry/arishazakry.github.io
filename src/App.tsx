@@ -8,8 +8,6 @@ import ResearchOutputs from './ResearchOutputs';
 import Contacts from './Contacts';
 
 const LOGO_DARK = logoSrc;
-const CONTENT_COPY = "https://www.figma.com/api/mcp/asset/a362049c-3fdd-405f-8ab7-1b8616472648";
-
 // ──────────────────────────────────────────────────────────
 // Nav
 // ──────────────────────────────────────────────────────────

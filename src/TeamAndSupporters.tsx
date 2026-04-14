@@ -1,33 +1,50 @@
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, GraduationCap, Mail } from 'lucide-react';
 import logoSrc from './assets/logo.png';
+import _asset_imgPrimaryResearcher from "./assets/primary-researcher.jpg";
+import _asset_imgNganNguyen from "./assets/ngan-nguyen.png";
+import _asset_imgTommyDang from "./assets/tommy-dang.png";
+import _asset_imgMarzhanN from "./assets/marzhan-n.png";
+import _asset_imgVibhor from "./assets/vibhor.png";
+import _asset_imgArishahuda from "./assets/arishahuda.jpg";
+import _asset_imgElizabeth from "./assets/elizabeth.png";
+import _asset_imgChengYun from "./assets/cheng-yun.png";
+import _asset_imgJonathan from "./assets/jonathan.png";
+import _asset_imgLauren from "./assets/lauren.png";
+import _asset_imgTingTing from "./assets/ting-ting.png";
+import _asset_imgDavidPriebe from "./assets/david-priebe.png";
+import _asset_imgLogoUMich from "./assets/logo-u-mich.png";
+import _asset_imgLogoPearl from "./assets/logo-pearl.png";
+import _asset_imgLogoVNU from "./assets/logo-v-n-u.png";
+import _asset_imgLogoIDVL from "./assets/logo-i-d-v-l.png";
+import _asset_imgLogoNEH from "./assets/logo-n-e-h.png";
+import _asset_imgLogoCH from "./assets/logo-c-h.png";
+import _asset_imgLogoTTU from "./assets/logo-t-t-u.png";
 
 const LOGO_DARK = logoSrc;
 
 // Team & Supporters page assets
-const imgPrimaryResearcher = "https://www.figma.com/api/mcp/asset/0c8e4a88-5607-4a4d-b039-054af82210ad";
-const imgNganNguyen = "https://www.figma.com/api/mcp/asset/c4fc2133-694b-48bc-8fbb-96a717044e42";
-const imgTommyDang = "https://www.figma.com/api/mcp/asset/78f81d25-7b51-4544-ba1a-0e3285b7ed35";
-const imgMarzhanN = "https://www.figma.com/api/mcp/asset/340e4ee8-6852-4698-a465-786310a6ca77";
-const imgVibhor = "https://www.figma.com/api/mcp/asset/4467e7bc-c613-4ebb-b60a-9afe66bfea98";
-const imgArishahuda = "https://www.figma.com/api/mcp/asset/1261eabc-2d92-4e85-8e8e-01afc47a3430";
-const imgElizabeth = "https://www.figma.com/api/mcp/asset/70e71867-4960-4786-9825-bbcabae3bf7b";
-const imgChengYun = "https://www.figma.com/api/mcp/asset/f32c9149-463e-4795-aa2d-1ed23bc92772";
-const imgJonathan = "https://www.figma.com/api/mcp/asset/1711997d-eb5d-47d2-a4de-77a394002eaa";
-const imgLauren = "https://www.figma.com/api/mcp/asset/8afcb9bb-d4be-4b76-bdf9-47088443c02c";
-const imgTingTing = "https://www.figma.com/api/mcp/asset/6bfdbc8c-c474-49b8-a7cd-ac3512f77316";
-const imgDavidPriebe = "https://www.figma.com/api/mcp/asset/b85b915d-b265-486a-864f-5e9c3793dda4";
+const imgPrimaryResearcher = _asset_imgPrimaryResearcher;
+const imgNganNguyen = _asset_imgNganNguyen;
+const imgTommyDang = _asset_imgTommyDang;
+const imgMarzhanN = _asset_imgMarzhanN;
+const imgVibhor = _asset_imgVibhor;
+const imgArishahuda = _asset_imgArishahuda;
+const imgElizabeth = _asset_imgElizabeth;
+const imgChengYun = _asset_imgChengYun;
+const imgJonathan = _asset_imgJonathan;
+const imgLauren = _asset_imgLauren;
+const imgTingTing = _asset_imgTingTing;
+const imgDavidPriebe = _asset_imgDavidPriebe;
 
-const imgLogoUMich = "https://www.figma.com/api/mcp/asset/8c4cddae-e6da-4316-a7b3-52177056aac4";
-const imgLogoPearl = "https://www.figma.com/api/mcp/asset/7f92f19f-328e-4f63-b5df-63f210e0276d";
-const imgLogoVNU = "https://www.figma.com/api/mcp/asset/acf44bd0-12a4-4cea-a197-45c0ef7aed5a";
-const imgLogoIDVL = "https://www.figma.com/api/mcp/asset/f4fbcfe9-e5dc-4d80-bfd6-4b0adcbc62e6";
+const imgLogoUMich = _asset_imgLogoUMich;
+const imgLogoPearl = _asset_imgLogoPearl;
+const imgLogoVNU = _asset_imgLogoVNU;
+const imgLogoIDVL = _asset_imgLogoIDVL;
 
-const imgLogoNEH = "https://www.figma.com/api/mcp/asset/41814b84-6785-45bb-8e0c-49561ae9c253";
-const imgLogoCH = "https://www.figma.com/api/mcp/asset/1fe2c511-4a20-4e8a-8460-e72cf96000ff";
-const imgLogoTTU = "https://www.figma.com/api/mcp/asset/3f864256-76e2-41db-8a43-69a2e4b77efe";
+const imgLogoNEH = _asset_imgLogoNEH;
+const imgLogoCH = _asset_imgLogoCH;
+const imgLogoTTU = _asset_imgLogoTTU;
 
-const imgSchoolIcon = "https://www.figma.com/api/mcp/asset/ff92c5c5-111f-44bb-a5c0-2cdb3e473b44";
-const imgMailIcon = "https://www.figma.com/api/mcp/asset/2dcf1bc4-80ca-4019-87c4-44df21b50c04";
 
 // ──────────────────────────────────────────────────────────
 // Nav
@@ -151,14 +168,14 @@ function PrimaryResearcher() {
                 rel="noreferrer"
                 className="flex items-center gap-2"
               >
-                <img src={imgSchoolIcon} alt="" className="w-6 h-6" />
+                <GraduationCap className="w-6 h-6" />
                 <span className="text-[18px] font-normal leading-[1.5] text-[#3b6edc]">Google Scholar</span>
               </a>
               <a
                 href="mailto:drwsears@umich.edu"
                 className="flex items-center gap-2"
               >
-                <img src={imgMailIcon} alt="" className="w-6 h-6" />
+                <Mail className="w-6 h-6" />
                 <span className="text-[18px] font-normal leading-[1.5] text-[#3b6edc]">drwsears@umich.edu</span>
               </a>
             </div>

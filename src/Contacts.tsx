@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Mail } from 'lucide-react';
 import logoSrc from './assets/logo.png';
 
 const LOGO_DARK = logoSrc;
-const imgMailIcon = "https://www.figma.com/api/mcp/asset/e95b33b0-366b-42cd-852c-0db3b132930d";
 
 const SUBJECTS = ['General Inquiry', 'Collaboration', 'Data Access', 'Technical Issue', 'Media / Press'];
 
@@ -323,7 +322,7 @@ export default function Contacts({
               href="mailto:drwsears@umich.edu"
               className="flex items-center gap-2 py-4 shrink-0"
             >
-              <img src={imgMailIcon} alt="" className="w-6 h-6 shrink-0" />
+              <Mail className="w-6 h-6 shrink-0" />
               <span className="text-[20px] font-normal leading-[1.5] text-[#3b6edc] whitespace-nowrap">
                 drwsears@umich.edu
               </span>
