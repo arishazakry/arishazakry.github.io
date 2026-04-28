@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Play, ChevronDown, ExternalLink, Download, Check, Copy } from 'lucide-react';
+import { Play, ChevronDown, ExternalLink, Download, Check, Copy, ArrowUpRight} from 'lucide-react';
 import heroVideo from './herovideo.mp4';
 import Globe3D from './Globe3D';
 import logoSrc from './assets/logo.png';
+import arrowDropDown from './assets/arrow_drop_down.svg';
+import autoStoriesIcon from './assets/auto_stories.svg';
 import TeamAndSupporters from './TeamAndSupporters';
 import ResearchOutputs from './ResearchOutputs';
 import Contacts from './Contacts';
@@ -12,10 +14,8 @@ const LOGO_DARK = logoSrc;
 // Nav
 // ──────────────────────────────────────────────────────────
 const DOWNLOAD_OPTIONS = [
-  { label: 'Desktop App', href: '#' },
-  { label: 'Python Library', href: 'https://github.com/arishazakry/mirage-library' },
-  { label: 'Paper', href: 'https://www.researchgate.net/publication/388883730_Exploring_internet_radio_across_the_globe_with_the_MIRAGE_online_dashboard'},
-  { label: 'Metacorpus', href: 'https://zenodo.org/records/12786202'},
+  { label: 'Web App', href: '#' },
+  { label: 'Python Library', href: 'https://github.com/arishazakry/mirage-library'},,
 ];
 
 const CITE_STYLES = [
@@ -31,10 +31,10 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
   const [dropdownOpen, setDropdownOpen] = useState(false)
   
   return (
-    <nav className="w-full border-b border-[#e0e0e0] bg-white">
-      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
+    <nav className="w-full h-20 border-b border-[#e0e0e0] bg-white">
+      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between h-full">
         {/* Logo */}
-        <div className="h-20 w-[136px] relative overflow-hidden shrink-0">
+        <div className="h-10 w-[136px] relative overflow-hidden shrink-0">
           <a href='/' ><img
             src={LOGO_DARK}
             alt="MIRAGE"
@@ -44,26 +44,30 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
         </div>
 
         {/* Links */}
-        <div className="flex items-center gap-12">
-          <span className="text-base font-medium text-[#f74b0e] cursor-pointer">Home</span>
+        <div className="flex items-center gap-7" style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, lineHeight: '150%' }}>
+          <span className="text-[#f74b0e] cursor-pointer">Home</span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateResearch}
           >
             Research Outputs
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateTeam}
           >
             Team &amp; Supporters
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateContacts}
           >
             Contacts
           </span>
+          <a href="https://arxiv.org/html/2502.05250v1" className="text-[#444] flex items-center hover:text-[#1e1e1e] transition-colors" target='_blank'>
+            Paper
+            <ArrowUpRight className='w-4 h-4 ml-1.5'/>
+          </a>
         </div>
 
         {/* Buttons */}
@@ -75,7 +79,7 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
               className="h-10 flex items-center gap-1 pl-4 pr-2 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e]"
             >
               Download 
-              <ChevronDown className={`w-4 h-4 text-[#c1c1c1] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+              <img src={arrowDropDown} alt="" className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             {dropdownOpen && (
               <div className='absolute right-0 mt-2 w-56 bg-white border border-[#e0e0e0] rounded-xl shadow-lg overflow-hidden z-50'>
@@ -97,7 +101,7 @@ function Nav({ onNavigateTeam, onNavigateResearch, onNavigateContacts }: { onNav
           target="_blank"
           rel="noreferrer"
           className="h-10 flex items-center px-4 bg-[#1e1e1e] rounded-xl text-sm font-medium text-white">
-            Explore Dashboard
+            Launch Dashboard
           </a>
         </div>
       </div>
@@ -113,43 +117,72 @@ function Hero() {
     <section className="w-full bg-white">
       <div className="max-w-[1440px] mx-auto px-20 pt-16 pb-40 flex items-center gap-10">
         {/* Left */}
-        <div className="flex-1 pt-16 flex flex-col gap-12">
-          <div className="flex flex-col gap-8">
-            <h1
-              className="text-[64px] font-bold leading-[1.1] tracking-[-1.2px] text-[#1e1e1e]"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              Mapping the Global Radio Landscape
-            </h1>
-            <p className="text-[20px] font-normal leading-[1.5] text-[#444]">
-              MIRAGE is an open-access platform for exploring and exporting metadata and musicological
-              features from millions of songs streaming across global internet radio.
-            </p>
+        <div className="w-[623px] shrink-0 flex flex-col gap-[161px]">
+          {/* Top: text + primary buttons */}
+          <div className="pt-16 flex flex-col gap-12">
+            <div className="flex flex-col gap-8">
+              <h1
+                className="text-[64px] font-bold leading-[1.1] tracking-[-1.2px] text-[#1e1e1e]"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Mapping the Global Radio Landscape
+              </h1>
+              <div className="flex flex-col gap-4">
+                <p className="text-[20px] font-normal leading-[1.5] text-[#444]">
+                  The Music Informatics for Radio Across the GlobE (MIRAGE) project enables users to analyze, visualize, and export metadata from thousands of stations across the globe.
+                </p>
+                <p className="text-[16px] font-normal leading-[1.5] text-[#6b6b6b]">
+                  Explore the dashboard, download the app or Python library, and read the paper.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://dashboard.mirage-project.org"
+                target="_blank"
+                rel="noreferrer"
+                className="h-14 flex items-center pl-6 pr-4 py-4 bg-[#3b6edc] rounded-2xl text-base font-normal text-white shrink-0"
+              >
+                <span className="pr-2">Launch Dashboard</span>
+                <ArrowUpRight className="w-6 h-6" />
+              </a>
+              <a
+                href="https://arxiv.org/html/2502.05250v1"
+                target="_blank"
+                rel="noreferrer"
+                className="h-14 flex items-center pl-4 pr-4 py-4 bg-[#f3f3f3] border border-[#e0e0e0] rounded-2xl text-base font-semibold text-[#1e1e1e] shrink-0"
+              >
+                <span className="pr-2">Read Paper</span>
+                <img src={autoStoriesIcon} alt="" className="w-6 h-6" />
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+
+          {/* Bottom: download text links */}
+          <div className="flex items-center gap-8">
             <a
-              href="https://dashboard.mirage-project.org"
-              target="_blank"
-              rel="noreferrer"
-              className="h-14 flex items-center px-4 bg-[#3b6edc] rounded-2xl text-base font-semibold text-white"
+              href="#"
+              className="text-[18px] font-normal leading-[1.5] text-[#444] underline whitespace-nowrap"
             >
-              Explore Dashboard
-              <ExternalLink className="w-4 h-4 ml-1.5" />
+              Download Web App
             </a>
+            <div className="w-px h-8 bg-[#e0e0e0] shrink-0" />
             <a
-              href="https://arxiv.org/html/2502.05250v1"
+              href="https://github.com/arishazakry/mirage-library"
               target="_blank"
               rel="noreferrer"
-              className="h-14 flex items-center gap-1 pl-4 pr-4 bg-[#f3f3f3] border border-[#e0e0e0] rounded-2xl text-base font-semibold text-[#1e1e1e]"
+              className="text-[18px] font-normal leading-[1.5] text-[#444] underline whitespace-nowrap"
             >
-              Read the Paper
+              Download Python Library
             </a>
           </div>
         </div>
 
         {/* Right – interactive globe */}
-        <div className="w-[620px] h-[640px] shrink-0 relative rounded-full overflow-hidden">
-          <Globe3D width={620} height={640} />
+        <div className="flex-1 flex items-center justify-end">
+          <div className="w-[620px] h-[640px] shrink-0 relative rounded-full overflow-hidden">
+            <Globe3D width={520} height={540} />
+          </div>
         </div>
       </div>
     </section>
@@ -225,12 +258,14 @@ function HowToUse() {
         </div>
 
         {/* Video */}
-        <div className="relative w-[842px] h-[518px] rounded-2xl border border-[#e0e0e0] overflow-hidden">
+        <div
+          className="relative w-[842px] h-[518px] rounded-2xl border border-[#e0e0e0] overflow-hidden cursor-pointer"
+          onClick={() => setPlaying((p) => !p)}
+        >
           <video
             src={heroVideo}
             className="absolute inset-0 w-full h-full object-cover"
             loop
-            muted
             playsInline
             ref={(el) => {
               if (el) playing ? el.play() : el.pause();
@@ -240,12 +275,9 @@ function HowToUse() {
             <>
               <div className="absolute inset-0 bg-black/50 rounded-2xl" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <button
-                  onClick={() => setPlaying(true)}
-                  className="w-14 h-14 rounded-2xl bg-[#f3f3f3] shadow-sm flex items-center justify-center"
-                >
+                <div className="w-14 h-14 rounded-2xl bg-[#f3f3f3] shadow-sm flex items-center justify-center pointer-events-none">
                   <Play className="w-5 h-5 text-[#1e1e1e] fill-[#1e1e1e]" />
-                </button>
+                </div>
               </div>
             </>
           )}
@@ -461,7 +493,17 @@ function HowToCite() {
               </button>
             </div>
             <div className="bg-white rounded-xl p-6 flex-1">
-              <p className="text-[16px] font-normal leading-[1.5] text-[#444]">{datasetCitation}</p>
+              <p className="text-[16px] font-normal leading-[1.5] text-[#444]">
+                {(() => {
+                  const url = 'https://doi.org/10.5281/zenodo.18112107';
+                  const [before, after] = datasetCitation.split(url);
+                  return (<>
+                    {before}
+                    <a href={url} target="_blank" rel="noreferrer" className="text-[#3b6edc] underline">{url}</a>
+                    {after}
+                  </>);
+                })()}
+              </p>
             </div>
           </div>
 
@@ -478,7 +520,14 @@ function HowToCite() {
               </button>
             </div>
             <div className="bg-white rounded-xl p-6 flex-1">
-              <p className="text-[16px] font-normal leading-[1.5] text-[#444]">{dashboardCitation}</p>
+              <a
+                href="https://www.researchgate.net/publication/388883730_Exploring_internet_radio_across_the_globe_with_the_MIRAGE_online_dashboard"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[16px] font-normal leading-[1.5] text-[#3b6edc] underline"
+              >
+                {dashboardCitation}
+              </a>
             </div>
           </div>
         </div>
@@ -564,9 +613,17 @@ function Footer() {
           <p className="text-[16px] font-normal text-[#c1c1c1]">
             © 2024 MIRAGE Research Project. All rights reserved.
           </p>
-          <p className="text-[16px] font-normal text-[#c1c1c1]">
-            MIRAGE is licensed under a Creative Commons Attribution
-          </p>
+          <span className="text-[16px] font-normal text-[#c1c1c1]">
+            MIRAGE is licensed under a{' '}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Creative Commons Attribution
+            </a>
+          </span>
         </div>
       </div>
     </footer>

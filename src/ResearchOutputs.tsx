@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Download, ArrowUpRight } from 'lucide-react';
 import logoSrc from './assets/logo.png';
+import arrowDropDown from './assets/arrow_drop_down.svg';
 const LOGO_DARK = logoSrc;
+
+const DOWNLOAD_OPTIONS = [
+  { label: 'Web App', href: '#' },
+  { label: 'Python Library', href: 'https://github.com/arishazakry/mirage-library' },
+];
 
 // ──────────────────────────────────────────────────────────
 // Publication data
@@ -36,10 +42,12 @@ function Nav({
   onNavigateTeam: () => void;
   onNavigateContacts?: () => void;
 }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
-    <nav className="w-full border-b border-[#e0e0e0] bg-white">
-      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
-        <div className="h-10 w-[126px] relative overflow-hidden shrink-0">
+    <nav className="w-full h-20 border-b border-[#e0e0e0] bg-white">
+      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between h-full">
+        <div className="h-10 w-[136px] relative overflow-hidden shrink-0">
           <a href='/'>
             <img
             src={LOGO_DARK}
@@ -48,37 +56,66 @@ function Nav({
           />
           </a>
         </div>
-        <div className="flex items-center gap-12">
+        <div className="flex items-center gap-7" style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, lineHeight: '150%' }}>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateHome}
           >
             Home
           </span>
-          <span className="text-base font-medium text-[#f74b0e] cursor-pointer">
+          <span className="text-[#f74b0e] cursor-pointer">
             Research Outputs
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateTeam}
           >
             Team &amp; Supporters
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateContacts}
           >
             Contacts
           </span>
+          <a href="https://arxiv.org/html/2502.05250v1" className="text-[#444] flex items-center hover:text-[#1e1e1e] transition-colors" target="_blank">
+            Paper
+            <ArrowUpRight className="w-4 h-4 ml-1.5" />
+          </a>
         </div>
         <div className="flex items-center gap-3">
-          <button className="h-10 flex items-center gap-1 pl-4 pr-2 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e]">
-            Download
-            <ChevronDown className="w-4 h-4 text-[#c1c1c1]" />
-          </button>
-          <button className="h-10 flex items-center px-4 bg-[#1e1e1e] rounded-xl text-sm font-medium text-white">
-            Explore Dashboard
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen((o) => !o)}
+              onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+              className="h-10 flex items-center gap-1 pl-4 pr-2 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e]"
+            >
+              Download
+              <img src={arrowDropDown} alt="" className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-white border border-[#e0e0e0] rounded-xl shadow-lg overflow-hidden z-50">
+                {DOWNLOAD_OPTIONS.map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="flex items-center justify-between px-4 py-3 text-sm text-[#1e1e1e] hover:bg-[#f3f3f3] transition-colors"
+                  >
+                    {label}
+                    <Download className="w-4 h-4 text-[#8a8a8a] shrink-0" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <a
+            href="https://dashboard.mirage-project.org"
+            target="_blank"
+            rel="noreferrer"
+            className="h-10 flex items-center px-4 bg-[#1e1e1e] rounded-xl text-sm font-medium text-white"
+          >
+            Launch Dashboard
+          </a>
         </div>
       </div>
     </nav>
@@ -252,9 +289,17 @@ function Footer() {
           <p className="text-[16px] font-normal text-[#c1c1c1]">
             © 2024 MIRAGE Research Project. All rights reserved.
           </p>
-          <p className="text-[16px] font-normal text-[#c1c1c1]">
-            MIRAGE is licensed under a Creative Commons Attribution
-          </p>
+          <span className="text-[16px] font-normal text-[#c1c1c1]">
+            MIRAGE is licensed under a{' '}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Creative Commons Attribution
+            </a>
+          </span>
         </div>
       </div>
     </footer>

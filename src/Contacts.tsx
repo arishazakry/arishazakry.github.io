@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { ChevronDown, Mail } from 'lucide-react';
+import { ChevronDown, Download, Mail, ArrowUpRight } from 'lucide-react';
 import logoSrc from './assets/logo.png';
+import arrowDropDown from './assets/arrow_drop_down.svg';
 
 const LOGO_DARK = logoSrc;
+
+const DOWNLOAD_OPTIONS = [
+  { label: 'Web App', href: '#' },
+  { label: 'Python Library', href: 'https://github.com/arishazakry/mirage-library' },
+];
 
 const SUBJECTS = ['General Inquiry', 'Collaboration', 'Data Access', 'Technical Issue', 'Media / Press'];
 
@@ -18,10 +24,12 @@ function Nav({
   onNavigateResearch: () => void;
   onNavigateTeam: () => void;
 }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
-    <nav className="w-full border-b border-[#e0e0e0] bg-white">
-      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between">
-        <div className="h-10 w-[126px] relative overflow-hidden shrink-0">
+    <nav className="w-full h-20 border-b border-[#e0e0e0] bg-white">
+      <div className="max-w-[1440px] mx-auto px-20 py-5 flex items-center justify-between h-full">
+        <div className="h-10 w-[136px] relative overflow-hidden shrink-0">
           <a href='/'>
             <img
             src={LOGO_DARK}
@@ -30,35 +38,64 @@ function Nav({
           />
           </a>
         </div>
-        <div className="flex items-center gap-12">
+        <div className="flex items-center gap-7" style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, lineHeight: '150%' }}>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateHome}
           >
             Home
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateResearch}
           >
             Research Outputs
           </span>
           <span
-            className="text-base font-normal text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
+            className="text-[#444] cursor-pointer hover:text-[#1e1e1e] transition-colors"
             onClick={onNavigateTeam}
           >
             Team &amp; Supporters
           </span>
-          <span className="text-base font-medium text-[#f74b0e] cursor-pointer">Contacts</span>
+          <span className="text-[#f74b0e] cursor-pointer">Contacts</span>
+          <a href="https://arxiv.org/html/2502.05250v1" className="text-[#444] flex items-center hover:text-[#1e1e1e] transition-colors" target="_blank">
+            Paper
+            <ArrowUpRight className="w-4 h-4 ml-1.5" />
+          </a>
         </div>
         <div className="flex items-center gap-3">
-          <button className="h-10 flex items-center gap-1 pl-4 pr-2 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e]">
-            Download
-            <ChevronDown className="w-4 h-4 text-[#c1c1c1]" />
-          </button>
-          <button className="h-10 flex items-center px-4 bg-[#1e1e1e] rounded-xl text-sm font-medium text-white">
-            Explore Dashboard
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen((o) => !o)}
+              onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+              className="h-10 flex items-center gap-1 pl-4 pr-2 bg-[#f3f3f3] border border-[#e0e0e0] rounded-xl text-sm font-medium text-[#1e1e1e]"
+            >
+              Download
+              <img src={arrowDropDown} alt="" className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-white border border-[#e0e0e0] rounded-xl shadow-lg overflow-hidden z-50">
+                {DOWNLOAD_OPTIONS.map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="flex items-center justify-between px-4 py-3 text-sm text-[#1e1e1e] hover:bg-[#f3f3f3] transition-colors"
+                  >
+                    {label}
+                    <Download className="w-4 h-4 text-[#8a8a8a] shrink-0" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <a
+            href="https://dashboard.mirage-project.org"
+            target="_blank"
+            rel="noreferrer"
+            className="h-10 flex items-center px-4 bg-[#1e1e1e] rounded-xl text-sm font-medium text-white"
+          >
+            Launch Dashboard
+          </a>
         </div>
       </div>
     </nav>
@@ -121,16 +158,20 @@ function ContactForm() {
         >
           My name is
         </p>
-        <div className="border-b border-[#e0e0e0] flex items-center h-14 py-4 w-[280px] shrink-0">
+        <div className="border-b border-[#e0e0e0] relative flex items-center h-14 py-4 w-[280px] shrink-0">
+          {!name && (
+            <span className="absolute left-0 inset-y-0 flex items-center text-[20px] text-[#8a8a8a] font-normal leading-[1.5] pointer-events-none select-none">
+              Enter your name{' '}<span className="text-[#f74b0e]">*</span>
+            </span>
+          )}
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
+            placeholder=""
             required
-            className="flex-1 bg-transparent text-[20px] font-normal text-[#8a8a8a] placeholder-[#8a8a8a] outline-none leading-[1.5]"
+            className="flex-1 bg-transparent text-[20px] font-normal text-[#8a8a8a] outline-none leading-[1.5]"
           />
-          <span className="text-[20px] text-[#f74b0e] leading-[1.5] shrink-0">*</span>
         </div>
         <p
           className="text-[32px] text-white leading-[1.1] tracking-[0.384px] shrink-0"
@@ -157,16 +198,20 @@ function ContactForm() {
         >
           Reach me at
         </p>
-        <div className="border-b border-[#e0e0e0] flex items-center h-14 py-4 flex-1">
+        <div className="border-b border-[#e0e0e0] relative flex items-center h-14 py-4 flex-1">
+          {!email && (
+            <span className="absolute left-0 inset-y-0 flex items-center text-[20px] text-[#8a8a8a] font-normal leading-[1.5] pointer-events-none select-none">
+              Enter your email{' '}<span className="text-[#f74b0e]">*</span>
+            </span>
+          )}
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            placeholder=""
             required
-            className="flex-1 bg-transparent text-[20px] font-normal text-[#8a8a8a] placeholder-[#8a8a8a] outline-none leading-[1.5]"
+            className="flex-1 bg-transparent text-[20px] font-normal text-[#8a8a8a] outline-none leading-[1.5]"
           />
-          <span className="text-[20px] text-[#f74b0e] leading-[1.5] shrink-0">*</span>
         </div>
       </div>
 
@@ -176,7 +221,7 @@ function ContactForm() {
           className="text-[32px] text-white leading-[1.1] tracking-[0.384px] shrink-0 w-60 pt-3"
           style={labelStyle}
         >
-          Subject is <span className="text-[#f74b0e]">*</span>
+          Subject is
         </p>
         <div className="flex flex-wrap gap-3 flex-1">
           {SUBJECTS.map((s) => {
@@ -204,7 +249,7 @@ function ContactForm() {
           className="text-[32px] text-white leading-[1.1] tracking-[0.384px] shrink-0 w-60"
           style={labelStyle}
         >
-          To discuss <span className="text-[#f74b0e]">*</span>
+          To discuss
         </p>
         <div className="border-b border-[#e0e0e0] pb-24 pt-4 w-full">
           <textarea
@@ -231,7 +276,7 @@ function ContactForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="h-14 w-[232px] flex items-center justify-center bg-[#3b6edc] rounded-2xl text-[16px] font-semibold text-white hover:bg-[#2f5cbf] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="h-[56px] w-[232px] flex items-center justify-center bg-[#3b6edc] rounded-2xl text-[16px] font-semibold text-white hover:bg-[#2f5cbf] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? 'Sending…' : 'Send Message'}
       </button>
@@ -283,7 +328,17 @@ function Footer() {
         </div>
         <div className="border-t border-white/10 pt-10 flex items-center justify-between w-full">
           <p className="text-[16px] font-normal text-[#c1c1c1]">© 2024 MIRAGE Research Project. All rights reserved.</p>
-          <p className="text-[16px] font-normal text-[#c1c1c1]">MIRAGE is licensed under a Creative Commons Attribution</p>
+          <span className="text-[16px] font-normal text-[#c1c1c1]">
+            MIRAGE is licensed under a{' '}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Creative Commons Attribution
+            </a>
+          </span>
         </div>
       </div>
     </footer>
